@@ -24,13 +24,50 @@ public class BinarySearchTreeWithDups<T extends Comparable<? super T>> extends B
 	}
 	
 	// YOUR CODE HERE! THIS METHOD CANNOT BE RECURSIVE.
+	// PART A - Question 1
+	// The helper method allows duplicate entries to be added.
+	
+	
 	private void addEntryHelperNonRecursive(T newEntry) {
-
+		
+		BinaryNode<T> currentNode = getRootNode();
+		T result  = null;
+		boolean foundIt = false;
+		
+		while(!foundIt) {
+		
+			int comparison = newEntry.compareTo(currentNode.getData());
+		
+//	If the new element is smaller or equal to current element, go into the left subtree.
+	
+		if (comparison <= 0) {
+			if(currentNode.hasLeftChild()) {
+		   currentNode= currentNode.getLeftChild();
+		}
+			else {
+				currentNode.setLeftChild(new BinaryNode<>(newEntry));
+				foundIt = true;
+				result = currentNode.getData();
+			}
+			
+//	If the new element is larger, go into the right subtree.
+		} else if(comparison > 0){
+			if(currentNode.hasRightChild()) {
+				
+				currentNode = currentNode.getRightChild(); 
+			}else {
+				
+				currentNode.setRightChild(new BinaryNode<>(newEntry));
+				foundIt = true;
+				result = currentNode.getData();
+		} 
 	}
 
-
+}
+	}
 	// YOUR CODE HERE! THIS METHOD CANNOT BE RECURSIVE.
 	// MAKE SURE TO TAKE ADVANTAGE OF THE SORTED NATURE OF THE BST!
+	// PART B - Question 2
 	public int countEntriesNonRecursive(T target) {
 		// this initial code is meant as a suggestion to get your started- use it or delete it!
 		int count = 0;
@@ -43,6 +80,7 @@ public class BinarySearchTreeWithDups<T extends Comparable<? super T>> extends B
 
 	// YOUR CODE HERE! MUST BE RECURSIVE! YOU ARE ALLOWED TO CREATE A PRIVATE HELPER.
 	// MAKE SURE TO TAKE ADVANTAGE OF THE SORTED NATURE OF THE BST!
+	// Part A - Question 3
 	public int countGreaterRecursive(T target) {
 		// this initial code is meant as a suggestion to get your started- use it or delete it!
 		int count = 0;
@@ -55,6 +93,7 @@ public class BinarySearchTreeWithDups<T extends Comparable<? super T>> extends B
 		
 	// YOUR CODE HERE! MUST USE A STACK!! MUST NOT BE RECURSIVE! 
 	// MAKE SURE TO TAKE ADVANTAGE OF THE SORTED NATURE OF THE BST!
+	// Part A - Question 4
 	public int countGreaterWithStack(T target) {
 		// this initial code is meant as a suggestion to get your started- use it or delete it!
 		int count = 0;
