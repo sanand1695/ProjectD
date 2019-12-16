@@ -99,28 +99,32 @@ implements SearchTreeInterface<T>, java.io.Serializable {
 	// MAKE SURE TO TAKE ADVANTAGE OF THE SORTED NATURE OF THE BST!
 	// Part A - Question 3
 	public int countGreaterRecursive(T target) {
-		// this initial code is meant as a suggestion to get your started- use it or
-		// delete it!
-		int count = 0;
-		BinaryNode<T> rootNode = getRootNode();
-
-		// consider a helper method!
-
-		return count;
+		return 0;
 	}
+	
 
 	// YOUR CODE HERE! MUST USE A STACK!! MUST NOT BE RECURSIVE!
 	// MAKE SURE TO TAKE ADVANTAGE OF THE SORTED NATURE OF THE BST!
 	// Part A - Question 4
 	public int countGreaterWithStack(T target) {
-		// this initial code is meant as a suggestion to get your started- use it or
-		// delete it!
 		int count = 0;
 		BinaryNode<T> rootNode = getRootNode();
 		Stack<BinaryNode<T>> nodeStack = new Stack<BinaryNode<T>>();
 		nodeStack.push(rootNode);
 
 		// consider a loop based on the stack!
+		while (!nodeStack.isEmpty()) {
+			BinaryNode<T> currentNode = nodeStack.pop();
+			if (currentNode.getData().compareTo(target) > 0) {
+				count++;
+				if (currentNode.hasLeftChild()) {
+					nodeStack.push(currentNode.getLeftChild());
+				}
+			}
+			if (currentNode.hasRightChild()) {
+				nodeStack.push(currentNode.getRightChild());
+			}
+		}
 		return count;
 	}
 
