@@ -128,7 +128,31 @@ implements SearchTreeInterface<T>, java.io.Serializable {
 	// YOU ARE ALLOWED TO USE A HELPER METHOD. THE METHOD CAN BE ITERATIVE OR
 	// RECURSIVE.
 	public int countUniqueValues() {
-		return 0;
+		BinaryNode<T> maxNode = getRootNode();
+		while (maxNode.hasRightChild()) {
+			maxNode = maxNode.getRightChild();
+		}
+		//+1 needed because this search will not count the highest value in the tree
+		return countUniqueValuesHelper(getRootNode(), maxNode.getData()) + 1;
+		
+	}
+	
+	private int countUniqueValuesHelper(BinaryNode<T> currentNode, T maxData) {
+		int total = 0;
+		
+		if (currentNode.hasLeftChild()) {
+			total += countUniqueValuesHelper(currentNode.getLeftChild(), currentNode.getData());
+		}
+		
+		if (currentNode.getData().compareTo(maxData) < 0) {
+			total++;
+		}
+		
+		if (currentNode.hasRightChild()) {
+			total += countUniqueValuesHelper(currentNode.getRightChild(), maxData);
+		}
+		
+		return total;
 	}
 
 	public int getLeftHeight() {
